@@ -36,8 +36,6 @@ public enum OrdersDao {
 				temp = br.readLine();
 			}
 			Order._id = maxId + 1;
-			Order or = new Order("Latte", "extra shot");
-			contentStore.put(or.getId(), or);
 			br.close();
 			fw.close();
 		} catch (IOException e) {

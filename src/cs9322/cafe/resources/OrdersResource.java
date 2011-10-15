@@ -59,6 +59,7 @@ public class OrdersResource {
 		return String.valueOf(count);
 	}
 	
+	@Path("new")
 	@POST
 	@Produces(MediaType.TEXT_HTML)
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -69,12 +70,13 @@ public class OrdersResource {
 	) throws IOException {
 		Order b = new Order(type, additions);
 		OrdersDao.instance.getOrders().put(b.getId(), b);
+		OrdersDao.instance.writeOrders();
 		
 		URI uri = uriInfo.getAbsolutePathBuilder().path(b.getId()).build();
 		Response.created(uri).build();
 		
 		// Redirect to some HTML page 
-		servletResponse.sendRedirect("../create_book.html");
+		servletResponse.sendRedirect("http://localhost:8080/CafeClient/");
 	}
 	
 	
