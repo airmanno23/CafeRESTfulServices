@@ -11,6 +11,7 @@ public class Order {
     private String type;
     private String additions;
     private String cost;
+    private String status;
     private static OrderMenu _menu = OrderMenu.instance;
     public static int _id = 1;
 
@@ -56,5 +57,13 @@ public class Order {
 	
 	public String getAdditions() {
 		return additions;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getStatus() {
+		return status;
 	}
 }

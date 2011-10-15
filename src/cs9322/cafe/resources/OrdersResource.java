@@ -32,16 +32,13 @@ public class OrdersResource {
 	UriInfo uriInfo;
 	@Context
 	Request request;
-	
-	OrdersDao dao = new OrdersDao();
-
 
 	// Return the list of books to the user in the browser
 	@GET
 	@Produces(MediaType.TEXT_XML)
 	public List<Order> getOrdersBrowser() {
 		List<Order> bs = new ArrayList<Order>();
-		bs.addAll( dao.getStore().values() );
+		bs.addAll( OrdersDao.instance.getOrders().values() );
 		return bs; 
 	}
 	
@@ -50,7 +47,7 @@ public class OrdersResource {
 	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	public List<Order> getOrders() {
 		List<Order> bs = new ArrayList<Order>();
-		bs.addAll( dao.getStore().values() );
+		bs.addAll( OrdersDao.instance.getOrders().values() );
 		return bs; 
 	}
 	
@@ -58,7 +55,7 @@ public class OrdersResource {
 	@Path("count")
 	@Produces(MediaType.TEXT_PLAIN)
 	public String getCount() {
-		int count = dao.getStore().size();
+		int count = OrdersDao.instance.getOrders().size();
 		return String.valueOf(count);
 	}
 	
@@ -71,7 +68,7 @@ public class OrdersResource {
 			@Context HttpServletResponse servletResponse
 	) throws IOException {
 		Order b = new Order(type, additions);
-		dao.getStore().put(b.getId(), b);
+		OrdersDao.instance.getOrders().put(b.getId(), b);
 		
 		URI uri = uriInfo.getAbsolutePathBuilder().path(b.getId()).build();
 		Response.created(uri).build();

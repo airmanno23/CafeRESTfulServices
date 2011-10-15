@@ -24,4 +24,14 @@
     <servlet-name>controller</servlet-name>
     <url-pattern>/controller</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>OrderCancel</display-name>
+    <servlet-name>OrderCancel</servlet-name>
+    <servlet-class>cs9322.cafe.control.OrderCancel</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>OrderCancel</servlet-name>
+    <url-pattern>/OrderCancel</url-pattern>
+  </servlet-mapping>
 </web-app>

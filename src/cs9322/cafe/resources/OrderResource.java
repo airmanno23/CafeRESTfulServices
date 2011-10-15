@@ -25,8 +25,6 @@ public class OrderResource {
 	Request request;
 	String id;
 	
-	OrdersDao dao = new OrdersDao();
-	
 	public OrderResource(UriInfo uriInfo, Request request, String id) {
 		this.uriInfo = uriInfo;
 		this.request = request;
@@ -38,10 +36,10 @@ public class OrderResource {
 	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	public Order getOrder() {
 		System.out.println("in the get");
-		Order b = dao.getStore().get(id);
-		if(b==null)
+		Order o = OrdersDao.instance.getOrders().get(id);
+		if(o==null)
 			throw new RuntimeException("GET: Order with" + id +  " not found");
-		return b;
+		return o;
 	}
 	
 	// Produces HTML for browser-based client
@@ -49,34 +47,36 @@ public class OrderResource {
 	@Produces(MediaType.TEXT_XML)
 	public Order getOrderHTML() {
 		System.out.println("in the get for html");
-		Order b = dao.getStore().get(id);
-		if(b==null)
+		Order o = OrdersDao.instance.getOrders().get(id);
+		if(o==null)
 			throw new RuntimeException("GET: Order with " + id +  " not found");
-		return b;
+		return o;
 	}
 	
 	@PUT
 	@Consumes(MediaType.APPLICATION_XML)
-	public Response putOrder(JAXBElement<Order> b) {
-		Order newb = b.getValue();
-		return putAndGetResponse(newb);
+	public Response putOrder(JAXBElement<Order> o) {
+		Order newo = o.getValue();
+		return putAndGetResponse(newo);
 	}
 	
 	@DELETE
 	public void deleteOrder() {
-		Order delb = dao.getStore().remove(id);
-		if(delb==null)
+		Order delo = OrdersDao.instance.getOrders().remove(id);
+		OrdersDao.instance.writeOrders();
+		if(delo==null)
 			throw new RuntimeException("DELETE: Order with " + id +  " not found");
 	}
 	
-	private Response putAndGetResponse(Order b) {
+	private Response putAndGetResponse(Order o) {
 		Response res;
-		if(dao.getStore().containsKey(b.getId())) {
+		if(OrdersDao.instance.getOrders().containsKey(o.getId())) {
 			res = Response.noContent().build();
 		} else {
 			res = Response.created(uriInfo.getAbsolutePath()).build();
 		}
-		dao.getStore().put(b.getId(), b);
+		OrdersDao.instance.getOrders().put(o.getId(), o);
+		OrdersDao.instance.writeOrders();
 		return res;
 	}
 }

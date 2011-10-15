@@ -12,11 +12,12 @@ import java.util.Map;
 import cs9322.cafe.model.Order;
 
 
-public class OrdersDao {
-
+public enum OrdersDao {
+	instance;
+	
     private Map<String, Order> contentStore = new HashMap<String, Order>();
 
-    public OrdersDao() {
+    private OrdersDao() {
 
     	try {
 			FileReader fw = new FileReader("Workspace/CafeRESTfulServices/CafeDB.txt");
@@ -45,11 +46,11 @@ public class OrdersDao {
 		}
     }
     
-    public Map<String, Order> getStore() {
+    public Map<String, Order> getOrders() {
         return contentStore;
     }
     
-    public void writeStore() {
+    public void writeOrders() {
     	try {
 			FileWriter fw = new FileWriter("Workspace/CafeRESTfulServices/CafeDB.txt", false);
 			Collection<Order> c = contentStore.values();
