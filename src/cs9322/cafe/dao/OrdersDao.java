@@ -16,11 +16,12 @@ public enum OrdersDao {
 	instance;
 	
     private Map<String, Order> contentStore = new HashMap<String, Order>();
+    private String ORDER_DB = "/home/neil/9322/ass3/workspace/CafeRESTfulServices/CafeDB.txt";
 
     private OrdersDao() {
 
     	try {
-			FileReader fw = new FileReader("Workspace/CafeRESTfulServices/CafeDB.txt");
+			FileReader fw = new FileReader(ORDER_DB);
 			BufferedReader br = new BufferedReader(fw);
 			String temp = br.readLine();
 			int maxId = 0;
@@ -50,7 +51,7 @@ public enum OrdersDao {
     
     public void writeOrders() {
     	try {
-			FileWriter fw = new FileWriter("Workspace/CafeRESTfulServices/CafeDB.txt", false);
+			FileWriter fw = new FileWriter(ORDER_DB, false);
 			Collection<Order> c = contentStore.values();
 			Iterator<Order> it = c.iterator();
 			while(it.hasNext()) {

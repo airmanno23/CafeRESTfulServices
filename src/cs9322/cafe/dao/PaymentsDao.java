@@ -16,11 +16,12 @@ public enum PaymentsDao {
 	instance;
 	
     private Map<String, Payment> contentStore = new HashMap<String, Payment>();
-
+    private String PAYMENT_DB = "/home/neil/9322/ass3/workspace/CafeRESTfulServices/PaymentDB.txt";
+    
     private PaymentsDao() {
 
     	try {
-			FileReader fw = new FileReader("Workspace/CafeRESTfulServices/PaymentDB.txt");
+			FileReader fw = new FileReader(PAYMENT_DB);
 			BufferedReader br = new BufferedReader(fw);
 			String temp = br.readLine();
 			while(temp != null && temp.length() != 0) {
@@ -47,7 +48,7 @@ public enum PaymentsDao {
     
     public void writePayments() {
     	try {
-			FileWriter fw = new FileWriter("Workspace/CafeRESTfulServices/PaymentDB.txt", false);
+			FileWriter fw = new FileWriter(PAYMENT_DB, false);
 			Collection<Payment> c = contentStore.values();
 			Iterator<Payment> it = c.iterator();
 			while(it.hasNext()) {
