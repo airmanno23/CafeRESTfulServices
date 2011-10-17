@@ -16,7 +16,7 @@ public enum OrdersDao {
 	instance;
 	
     private Map<String, Order> contentStore = new HashMap<String, Order>();
-    private String ORDER_DB = "/home/neil/9322/ass3/workspace/CafeRESTfulServices/CafeDB.txt";
+    private String ORDER_DB = "Workspace/CafeRESTfulServices/CafeDB.txt";
 
     private OrdersDao() {
 

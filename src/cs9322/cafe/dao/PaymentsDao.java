@@ -16,7 +16,7 @@ public enum PaymentsDao {
 	instance;
 	
     private Map<String, Payment> contentStore = new HashMap<String, Payment>();
-    private String PAYMENT_DB = "/home/neil/9322/ass3/workspace/CafeRESTfulServices/PaymentDB.txt";
+    private String PAYMENT_DB = "Workspace/CafeRESTfulServices/PaymentDB.txt";
     
     private PaymentsDao() {
 
