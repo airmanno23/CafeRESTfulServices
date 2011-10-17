@@ -1,4 +1,7 @@
-3,Mocha,None,4.5
-6,Cappuccino,Extra shot,7.0
-5,Latte,None,5.0
-4,Long Black,Skim milk,3.5
+3,Mocha,None,4.5,1,1
+10,Long Black,Extra shot,3.0,1,1
+1,Long Black,Skim milk,3.5,1,1
+6,Cappuccino,Extra shot,7.0,1,1
+4,Cappuccino,Skim milk,3.5,1,1
+9,Latte,Skim milk,6.0,1,1
+11,Long Black,None,2.5,1,1

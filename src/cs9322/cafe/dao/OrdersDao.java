@@ -33,6 +33,8 @@ public enum OrdersDao {
 				Order o = new Order(fields[1], fields[2]);
 				o.setId(fields[0]);
 				o.setCost(fields[3]);
+				o.setPaidStatus(fields[4]);
+				o.setBaristaStatus(fields[5]);
 				contentStore.put(o.getId(), o);
 				temp = br.readLine();
 			}
@@ -56,7 +58,7 @@ public enum OrdersDao {
 			Iterator<Order> it = c.iterator();
 			while(it.hasNext()) {
 				Order o = it.next();
-				fw.append(o.getId() + "," + o.getType() + "," + o.getAdditions() + "," + o.getCost() + "\n");
+				fw.append(o.getId() + "," + o.getType() + "," + o.getAdditions() + "," + o.getCost() + "," + o.getPaidStatus() + "," + o.getBaristaStatus() + "\n");
 			}
 			fw.close();
 		} catch (IOException e) {

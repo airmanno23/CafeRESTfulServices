@@ -1,7 +1,11 @@
 package cs9322.cafe.resources;
 
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Produces;
@@ -10,7 +14,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
-import javax.xml.bind.JAXBElement;
 
 import cs9322.cafe.dao.OrdersDao;
 import cs9322.cafe.model.Order;
@@ -35,7 +38,6 @@ public class OrderResource {
 	@GET
 	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	public Order getOrder() {
-		System.out.println("in the get");
 		Order o = OrdersDao.instance.getOrders().get(id);
 		if(o==null)
 			throw new RuntimeException("GET: Order with" + id +  " not found");
@@ -46,7 +48,6 @@ public class OrderResource {
 	@GET
 	@Produces(MediaType.TEXT_XML)
 	public Order getOrderHTML() {
-		System.out.println("in the get for html");
 		Order o = OrdersDao.instance.getOrders().get(id);
 		if(o==null)
 			throw new RuntimeException("GET: Order with " + id +  " not found");
@@ -54,9 +55,24 @@ public class OrderResource {
 	}
 	
 	@PUT
-	@Consumes(MediaType.APPLICATION_XML)
-	public Response putOrder(JAXBElement<Order> o) {
-		Order newo = o.getValue();
+	@Produces(MediaType.TEXT_HTML)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public Response putOrder(
+			@FormParam("type") String type,
+			@FormParam("additions") String additions,
+			@FormParam("paidStatus") String paidStatus,
+			@FormParam("baristaStatus") String baristaStatus,
+			@Context HttpServletResponse servletResponse
+			) throws IOException {
+		Order newo = OrdersDao.instance.getOrders().get(id);
+		if(type != null)
+			newo.setType(type);
+		if(additions != null)
+			newo.setAdditions(additions);
+		if(paidStatus != null)
+			newo.setPaidStatus(paidStatus);
+		if(baristaStatus != null)
+			newo.setBaristaStatus(baristaStatus);
 		return putAndGetResponse(newo);
 	}
 	

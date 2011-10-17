@@ -11,7 +11,8 @@ public class Order {
     private String type;
     private String additions;
     private String cost;
-    private String status;
+    private String paidStatus;	//1 means unpaid, 2 means paid
+    private String baristaStatus; //1 means not prepared, 2 means prepared, 3 means released
     private static OrderMenu _menu = OrderMenu.instance;
     public static int _id = 1;
 
@@ -24,7 +25,8 @@ public class Order {
         this.type = type;
         this.additions = additions;
         this.cost = String.valueOf((_menu.getPrice(type) + _menu.getPrice(additions)));
-        
+        this.setPaidStatus("1");
+        this.setBaristaStatus("1");
     }
     
     public String getId() {
@@ -59,11 +61,20 @@ public class Order {
 		return additions;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setBaristaStatus(String baristaStatus) {
+		this.baristaStatus = baristaStatus;
 	}
 
-	public String getStatus() {
-		return status;
+	public String getBaristaStatus() {
+		return baristaStatus;
 	}
+
+	public void setPaidStatus(String paidStatus) {
+		this.paidStatus = paidStatus;
+	}
+
+	public String getPaidStatus() {
+		return paidStatus;
+	}
+
 }

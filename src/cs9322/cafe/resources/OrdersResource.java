@@ -74,9 +74,6 @@ public class OrdersResource {
 		
 		URI uri = uriInfo.getAbsolutePathBuilder().path(b.getId()).build();
 		Response.created(uri).build();
-		
-		// Redirect to some HTML page 
-		servletResponse.sendRedirect("http://localhost:8080/CafeClient/");
 	}
 	
 	
