@@ -27,7 +27,6 @@ public class PaymentResource {
 	@GET
 	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	public Payment getOrder() {
-		System.out.println("in the get");
 		Payment p = PaymentsDao.instance.getPayments().get(orderID);
 		if(p == null)
 			throw new RuntimeException("GET: Payment with " + orderID +  " not found");
@@ -38,7 +37,6 @@ public class PaymentResource {
 	@GET
 	@Produces(MediaType.TEXT_XML)
 	public Payment getOrderHTML() {
-		System.out.println("in the get for html");
 		Payment p = PaymentsDao.instance.getPayments().get(orderID);
 		if( p==null )
 			throw new RuntimeException("GET: Payment with " + orderID +  " not found");
