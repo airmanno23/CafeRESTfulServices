@@ -59,11 +59,10 @@ public class OrdersResource {
 		return String.valueOf(count);
 	}
 	
-	@Path("new")
 	@POST
-	@Produces(MediaType.TEXT_HTML)
+	@Produces({MediaType.TEXT_HTML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_XML})
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public void newOrder(
+	public String newOrder(
 			@FormParam("type") String type,
 			@FormParam("additions") String additions,
 			@Context HttpServletResponse servletResponse
@@ -74,6 +73,11 @@ public class OrdersResource {
 		
 		URI uri = uriInfo.getAbsolutePathBuilder().path(b.getId()).build();
 		Response.created(uri).build();
+		
+		String orderURI = uri.toString();
+		String paymentURI = orderURI.replace("orders", "payments");
+		
+		return orderURI + "#" + paymentURI;
 	}
 	
 	

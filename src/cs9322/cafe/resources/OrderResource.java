@@ -40,7 +40,7 @@ public class OrderResource {
 	public Order getOrder() {
 		Order o = OrdersDao.instance.getOrders().get(id);
 		if(o==null)
-			throw new RuntimeException("GET: Order with" + id +  " not found");
+			throw new RuntimeException("GET: Order with " + id +  " not found");
 		return o;
 	}
 	
