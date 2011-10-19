@@ -83,6 +83,22 @@ public class OrderResource {
 			}
 		}
 		
+		//check update barista status
+		if (baristaStatus != null && type == null && additions == null && paidStatus == null) {
+			//check release button
+			if (baristaStatus.equals("3")) {
+				if (!newo.getBaristaStatus().equals("2") || !newo.getPaidStatus().equals("2")) {
+					rsp = Response.status(403).build();
+					return rsp;
+				}
+			}
+			//check prepare button
+			if (baristaStatus.equals("2") && !newo.getBaristaStatus().equals("1")) {
+				rsp = Response.status(403).build();
+				return rsp;
+			}
+		}
+		
 		if(type != null)
 			newo.setType(type);
 		if(additions != null)
