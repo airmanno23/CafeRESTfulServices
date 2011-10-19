@@ -138,9 +138,9 @@ public class OrderResource {
 		Order o = OrdersDao.instance.getOrders().get(id);
 		String paidStatus = o.getPaidStatus();
 		String baristaStatus = o.getBaristaStatus();
-		String options = "get/options";
+		String options = "ALLOW: GET OPTIONS";
 		if(paidStatus.equals("1") && baristaStatus.equals("1"))
-			options = options + "/put/delete";
+			options = options + " PUT DELETE";
 		return options;
 	}
 	
