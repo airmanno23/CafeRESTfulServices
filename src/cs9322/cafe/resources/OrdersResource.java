@@ -67,17 +67,21 @@ public class OrdersResource {
 			@FormParam("additions") String additions,
 			@Context HttpServletResponse servletResponse
 	) throws IOException {
-		Order b = new Order(type, additions);
-		OrdersDao.instance.getOrders().put(b.getId(), b);
+		Order o = new Order(type, additions);
+		OrdersDao.instance.getOrders().put(o.getId(), o);
 		OrdersDao.instance.writeOrders();
 		
-		URI uri = uriInfo.getAbsolutePathBuilder().path(b.getId()).build();
+		URI uri = uriInfo.getAbsolutePathBuilder().path(o.getId()).build();
 		Response.created(uri).build();
 		
 		String orderURI = uri.toString();
 		String paymentURI = orderURI.replace("orders", "payments");
+		String results = "{\"additions\":\"" + o.getAdditions() + "\",\"baristaStatus\":\"" 
+		+ o.getBaristaStatus()+ "\",\"cost\":\"" + o.getCost() + "\",\"id\":\""
+		+ o.getId() + "\",\"paidStatus\":\"" + o.getPaidStatus() + "\",\"type\":\""
+		+ o.getType() + "\"}";
 		
-		return orderURI + "#" + paymentURI;
+		return results + "#" + orderURI + "#" + paymentURI;
 	}
 	
 	

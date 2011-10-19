@@ -1,7 +1,6 @@
 package cs9322.cafe.resources;
 
 import java.io.IOException;
-import java.net.URI;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
@@ -69,8 +68,10 @@ public class PaymentResource {
         PaymentsDao.instance.getPayments().put(p.getId(), p);
 		PaymentsDao.instance.writePayments();
 		
-		URI uri = uriInfo.getAbsolutePathBuilder().path(p.getId()).build();
-		rsp = Response.created(uri).build();
+		String results = "{\"amount\":\"" + p.getAmount() + "\",\"cardNumber\":\"" 
+		+ p.getCardNumber()+ "\",\"id\":\"" + p.getId() + "\",\"type\":\""
+		+ p.getType() + "\"}";
+		rsp = Response.ok(results).build();
 		
 		return rsp;
 	}
